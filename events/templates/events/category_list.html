@@ -1,0 +1,18 @@
+{% extends "event_base.html" %}
+
+{% block content %}
+  <h3>Event Category List</h3>
+  {% if category_list %}
+    <ul>
+      {% for category in category_list %}
+      <li>
+        <a href="{% url 'category-detail' category.id %}">{{ category.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no categories available.</p>
+  {% endif %}
+  <a href="{% url 'category-create' %}" class="button-primary">+ Add Category</a>
+  <a href="{% url 'event-list' %}" class="button-secondary">Events List</a>
+{% endblock %}

@@ -1,0 +1,1 @@
+from .events import EventCreateView, EventDeleteView, EventDetailView, EventListView, EventUpdateView

@@ -1,0 +1,77 @@
+{% extends 'event_base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-8">
+      <h3>{{ event.title }}</h3>
+    </div>
+    <div class="col-4 text-center">
+      <a href="{% url 'event-update' event.id %}" class="button-secondary">Edit</a>
+      <a href="{% url 'event-delete' event.id %}" class="button-danger">Delete</a>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-8">
+      <p>{{ event.subtitle }}</p>
+      <p>Date: {{ event.date }}</p>
+      <p>Category: <a href="{% url 'category-detail' event.category.id  %}">{{ event.category }}</a></p>
+      <p>Points: {{ event.points }}</p>
+    </div>
+    <div class="col-4 d-flex">
+      <div class="text-center m-auto">
+        <p class="stat-number">{{ event.attendees|length }}</p>
+        <hr class="underline">
+        <p class="stat-label">Students attended</p>
+      </div>
+    </div>
+  </div>
+  {% if event.attendees|length > 1 %}
+  <div class="row my-5 text-center">
+    <div class="col">
+      <img class="plot" src='data:image/png;base64,{{ event.gender_plot | safe }}' alt="Gender Count Plot"/>
+    </div>
+    <div class="col">
+      <img class="plot" src='data:image/png;base64,{{ event.ethnicity_plot | safe }}' alt="Ethnicty Count Plot"/>
+    </div>
+    <div class="col">
+      <img class="plot" src='data:image/png;base64,{{ event.year_in_school_plot | safe }}' alt="Year In School Count Plot"/>
+    </div>
+  </div>
+  {% endif %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h3>Students Attended</h3>
+    <a href="{% url 'event-add-students' event.id %}" class="button-primary">+ Add Students</a>
+  </div>
+  {% if event.attendees %}
+    <div class="mb-5">
+      <table class="table table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>PFW ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Ethnicity</th>
+            <th>Major</th>
+            <th>Year In School</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in event.attendees %}
+            <tr>
+              <th><a href="{% url 'student-detail' student.pfw_id %}">{{ student.pfw_id }}</a></th>
+              <td><a href="{% url 'student-detail' student.pfw_id %}">{{ student.name }}</a></td>
+              <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+              <td><a href="{% url 'gender-detail' student.gender.id %}">{{ student.gender }}</a></td>
+              <td><a href="{% url 'ethnicity-detail' student.ethnicity.id %}">{{ student.ethnicity }}</a></td>
+              <td><a href="{% url 'major-detail' student.major.id %}">{{ student.major }}</a></td>
+              <td><a href="{% url 'year-in-school-detail' student.year_in_school.id %}">{{ student.year_in_school }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center">No getting to graduate students attended this event.</p>
+  {% endif %}
+{% endblock %}

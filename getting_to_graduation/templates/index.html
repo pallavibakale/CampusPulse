@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block section %}
+  <div class="row p-5">
+    <div class="col-sm-6">
+      <div class="card shadow">
+        <img src="{% static 'students.webp' %}" alt="">
+        <div class="card-body text-center">
+          <a href="{% url 'student-list' %}" class="button-primary">Students</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card shadow">
+        <img src="{% static 'events.webp' %}" alt="">
+        <div class="card-body text-center">
+          <a href="{% url 'event-list' %}" class="button-primary">Events</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

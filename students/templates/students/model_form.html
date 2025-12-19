@@ -1,0 +1,17 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+  
+  <div class="container">
+    <h3>{{ form.action }} {{ form.model }}: </h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="container text-center">
+        <input type="submit" class="button-primary" value="Save" />
+        <a href="{% url 'student-list' %}" class="button-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+

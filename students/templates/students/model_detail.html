@@ -1,0 +1,66 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+  <div class="row my-5">
+    <div class="col-8">
+      <h3>{{ object.type }}: {{ object.name }}</h3>
+    </div>
+    <div class="col-4 text-end">
+      <a href="{% url object.update_url_name object.pk %}" class="button-secondary">Edit</a>
+      <a href="{% url object.delete_url_name object.pk %}" class="button-danger">Delete</a>
+    </div>
+  </div>
+  <div class="row my-5 p-5 text-center">
+    <div class="col">
+      <p class="stat-number">{{ object.count }}</p>
+      <hr class="underline" />
+      <p class="stat-label">Students</p>
+    </div>
+    <div class="vr p-0"></div>
+    <div class="col">
+      <p class="stat-number">{{ object.total_points }}</p>
+      <hr class="underline">
+      <p class="stat-label">Total Points</p>
+    </div>
+    <div class="vr p-0"></div>
+    <div class="col">
+      <p class="stat-number">{{ object.average_points }}</p>
+      <hr class="underline">
+      <p class="stat-label">Average Points</p>
+    </div>
+  </div>
+  {% if object.students %}
+    <div class="mb-5">
+      <table class="table table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>PFW ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Year In School</th>
+            <th>Major</th>
+            <th>Gender</th>
+            <th>Ethnicity</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in object.students %}
+            <tr>
+              <th><a href="{% url 'student-detail' student.pfw_id %}">{{ student.pfw_id }}</a></th>
+              <td><a href="{% url 'student-detail' student.pfw_id %}">{{ student.name }}</a></td>
+              <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+              <td><a href="{% url 'year-in-school-detail' student.year_in_school.id %}">{{ student.year_in_school }}</a></td>
+              <td><a href="{% url 'major-detail' student.major.id %}">{{ student.major }}</a></td>
+              <td><a href="{% url 'gender-detail' student.gender.id %}">{{ student.gender }}</a></td>
+              <td><a href="{% url 'ethnicity-detail' student.ethnicity.id %}">{{ student.ethnicity }}</a></td>
+              <td>{{ student.total_points }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center">No students available.</p>
+  {% endif %}
+{% endblock %}

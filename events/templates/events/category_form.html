@@ -1,0 +1,17 @@
+{% extends 'event_base.html' %}
+
+{% block content %}
+  
+  <div class="container">
+    <h3>Add Event Category</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="container text-center">
+        <input type="submit" class="button-primary" value="Save" />
+        <a href="{% url 'event-list' %}" class="button-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+

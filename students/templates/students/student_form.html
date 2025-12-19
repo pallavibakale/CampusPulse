@@ -1,0 +1,29 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+  <div class="container my-5 text-center">
+    <a href="{% url 'gender-create' %}" class="button-secondary">+ Gender</a>
+    <a href="{% url 'ethnicity-create' %}" class="button-secondary">+ Ethnicity</a>
+    <a href="{% url 'major-create' %}" class="button-secondary">+ Major</a>
+    <a href="{% url 'year-in-school-create' %}" class="button-secondary">+ Year In School</a>
+  </div>
+  <div class="container mx-auto w-50">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="fieldWrapper py-1">
+          {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
+          {% if field.help_text %}
+            <p class="help" id="{{ field.auto_id }}_helptext">{{ field.help_text|safe }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="container text-center">
+        <input type="submit" class="button-primary" value="Save" />
+        <a href="{% url 'student-list' %}" class="button-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

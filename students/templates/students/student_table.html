@@ -1,0 +1,31 @@
+<div>
+    <table class="table table-hover table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>PFW ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Year In School</th>
+          <th>Major</th>
+          <th>Gender</th>
+          <th>Ethnicity</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <th><a href="{% url 'student-detail' student.pfw_id %}">{{ student.pfw_id }}</a></th>
+            <td><a href="{% url 'student-detail' student.pfw_id %}">{{ student.name }}</a></td>
+            <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+            <td><a href="{% url 'year-in-school-detail' student.year_in_school.id %}">{{ student.year_in_school }}</a></td>
+            <td><a href="{% url 'major-detail' student.major.id %}">{{ student.major }}</a></td>
+            <td><a href="{% url 'gender-detail' student.gender.id %}">{{ student.gender }}</a></td>
+            <td><a href="{% url 'ethnicity-detail' student.ethnicity.id %}">{{ student.ethnicity }}</a></td>
+            <td>{{ student.total_points }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  

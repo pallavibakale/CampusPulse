@@ -1,0 +1,73 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+  <div class="row my-5 p-5 text-center">
+    <div class="col">
+      <p class="stat-number">{{ student_list | length }}</p>
+      <hr class="underline" />
+      <p class="stat-label">Students</p>
+    </div>
+    <div class="vr p-0"></div>
+    <div class="col">
+      <p class="stat-number">{{ stats.total_points }}</p>
+      <hr class="underline">
+      <p class="stat-label">Total Points</p>
+    </div>
+    <div class="vr p-0"></div>
+    <div class="col">
+      <p class="stat-number">{{ stats.avg_points }}</p>
+      <hr class="underline">
+      <p class="stat-label">Average Points</p>
+    </div>
+    <div class="vr p-0"></div>
+    <div class="col">
+      <p class="stat-number">{{ stats.inactive }}</p>
+      <hr class="underline">
+      <p class="stat-label">Inactive</p>
+    </div>
+  </div>
+  </div>
+  <div class="container text-end p-3 my-3">
+    <a href="{% url 'student-winners' %}" class="button-secondary">Winners</a>
+    <a href="{% url 'gender-list' %}" class="button-secondary">Genders</a>
+    <a href="{% url 'ethnicity-list' %}" class="button-secondary">Ethnicities</a>
+    <a href="{% url 'major-list' %}" class="button-secondary">Majors</a>
+    <a href="{% url 'year-in-school-list' %}" class="button-secondary">Year In School</a>
+    <a href="{% url 'student-download-csv' %}" class="button-primary">Download as CSV</a>
+    <a href="{% url 'student-create' %}" class="button-primary">+ Add Student</a>
+  </div>
+  {% if student_list %}
+    <div class="container">
+      <table class="table table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>PFW ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Year In School</th>
+            <th>Major</th>
+            <th>Gender</th>
+            <th>Ethnicity</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in student_list %}
+            <tr>
+              <th><a href="{% url 'student-detail' student.pfw_id %}">{{ student.pfw_id }}</a></th>
+              <td><a href="{% url 'student-detail' student.pfw_id %}">{{ student.name }}</a></td>
+              <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+              <td><a href="{% url 'year-in-school-detail' student.year_in_school.id %}">{{ student.year_in_school }}</a></td>
+              <td><a href="{% url 'major-detail' student.major.id %}">{{ student.major }}</a></td>
+              <td><a href="{% url 'gender-detail' student.gender.id %}">{{ student.gender }}</a></td>
+              <td><a href="{% url 'ethnicity-detail' student.ethnicity.id %}">{{ student.ethnicity }}</a></td>
+              <td>{{ student.total_points }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center my-5">There are no students available.</p>
+  {% endif %}
+{% endblock %}

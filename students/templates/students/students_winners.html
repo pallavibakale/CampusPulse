@@ -1,0 +1,33 @@
+{% extends 'student_base.html' %}
+
+{% block content %}
+
+<div class="my-5">
+  <h3>Top 10 Students</h3>
+</div>
+{% if top_10_students %}
+  {% include 'students/student_table.html' with students=top_10_students %}
+{% else %}
+   <p class="text-center my-5">There are no students available.</p>
+{% endif %}
+
+
+<div class="my-5">
+  <h3>Students with 150+ Points</h3>
+</div>
+{% if students_150_points %}
+  {% include 'students/student_table.html' with students=students_150_points %}
+{% else %}
+   <p class="text-center my-5">There are no students available.</p>
+{% endif %}
+
+<div class="my-5">
+  <h3>Students with 300+ Points</h3>
+</div>
+{% if students_300_points %}
+  {% include 'students/student_table.html' with students=students_300_points %}
+{% else %}
+   <p class="text-center my-5">There are no students available.</p>
+{% endif %}
+
+{% endblock %}

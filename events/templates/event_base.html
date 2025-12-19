@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block section %}
+  <div class="container text-center mb-5">
+    <a href="{% url 'event-list' %}">
+      <h2 class="px-4 pt-4 pb-2">Events</h2>
+    </a>
+    <hr class="underline" />
+  </div>
+  <div class="container">
+    {% block content %}
+
+    {% endblock %}
+  </div>
+{% endblock %}

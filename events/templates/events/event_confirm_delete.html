@@ -1,0 +1,15 @@
+{% extends 'event_base.html' %}
+
+{% block content %}
+  <div class="container mx-auto w-50 text-center my-5">
+    <form method="post">
+      {% csrf_token %}
+      <h3 class="my-5">Are you sure you want to delete "{{ object }}"?</h3>
+      {{ form }}
+      <div class="container text-center">
+        <input type="submit" class="button-danger" value="Confirm" />
+        <a href="{% url 'event-list' %}" class="button-primary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "student_base.html" %}
+
+{% block content %}
+  <h3>{{ object.name }} List</h3>
+  {% if object_list %}
+    <div class="my-5 gap-3">
+      {% for item in object_list %}
+        <a class="button-secondary-chip m-2" href="{% url object.detail_url_name item.id %}">{{ item.name }}</a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>None available.</p>
+  {% endif %}
+  <a href="{% url object.create_url_name %}" class="button-primary">+ Add {{ object.name }}</a>
+  <a href="{% url 'student-list' %}" class="button-secondary">Students List</a>
+  <div class="row my-5 text-center">
+    <div class="col">
+      <img class="plot" src='data:image/png;base64,{{ plot.count_plot | safe }}' alt="Genders Distribution Plot"/>
+    </div>
+    <div class="col">
+      <img class="plot" src='data:image/png;base64,{{ plot.total_points_plot | safe }}' alt="Gender-wise Total Points Plot"/>
+    </div>
+  </div>
+{% endblock %}
